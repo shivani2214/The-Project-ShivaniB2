@@ -5,6 +5,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
+import static java.net.URLEncoder.encode;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -19,7 +21,12 @@ public class CharityService {
   
   public List<Charity> fetchCharitiesByCause(String cause, int take) {
     List<Charity> charities = new ArrayList<>();
-    String url = String.format(API_URL, cause, API_KEY, take);
+    String url = String.format(
+        API_URL,
+        encode(cause, UTF_8), 
+        encode(API_KEY, UTF_8), 
+        take
+    );
 
     try {
       HttpClient client = HttpClient.newHttpClient();
